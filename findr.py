@@ -9,15 +9,15 @@ def check_vulnerabilities(url):
     try:
         response = requests.get(url, timeout=10)
         
-        # Example: Check for HTTP Strict Transport Security (HSTS)
+        # Check for HTTP Strict Transport Security (HSTS)
         if 'Strict-Transport-Security' not in response.headers:
             vulnerabilities.append("HSTS header is missing. This can leave the site vulnerable to man-in-the-middle attacks.")
 
-        # Example: Check for X-Content-Type-Options header
+        # Check for X-Content-Type-Options header
         if 'X-Content-Type-Options' not in response.headers:
             vulnerabilities.append("X-Content-Type-Options header is missing. This can lead to MIME-sniffing attacks.")
 
-        # Example: Check for X-Frame-Options header
+        # Check for X-Frame-Options header
         if 'X-Frame-Options' not in response.headers:
             vulnerabilities.append("X-Frame-Options header is missing. This can make the site vulnerable to clickjacking.")
 
