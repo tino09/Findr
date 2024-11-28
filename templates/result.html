@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scan Results</title>
+</head>
+<body>
+    <h1>Scan Results for {{ url }}</h1>
+    {% if vulnerabilities %}
+        <ul>
+        {% for vulnerability in vulnerabilities %}
+            <li>{{ vulnerability }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No vulnerabilities found!</p>
+    {% endif %}
+    <a href="/">Go back</a>
+</body>
+</html>
