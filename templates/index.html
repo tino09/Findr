@@ -1,14 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Vulnerability Scanner</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Assessment Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 50%;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        input[type="text"], button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-    <h1>Simple Vulnerability Scanner</h1>
-    <form method="POST" action="/scan">
-        <label for="url">Enter URL:</label>
-        <input type="text" id="url" name="url" required>
-        <button type="submit">Scan</button>
-    </form>
+    <div class="container">
+        <h1>Vulnerability Assessment Tool</h1>
+        <p>UoW Cyber Security & Forensic 2024 Project </p>
+        <form id="assessment-form">
+            <input type="text" id="url" placeholder="Enter URL (e.g., https://example.com)" required>
+            <button type="submit">Run Assessment</button>
+        </form>
+        <div class="results" id="results"></div>
+    </div>
+    <script>
+        const form = document.getElementById('assessment-form');
+        const resultsDiv = document.getElementById('results');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const url = document.getElementById('url').value;
+            resultsDiv.innerHTML = "<p>Running assessment...</p>";
+
+            const response = await fetch('/run-assessment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url })
+            });
+            const data = await response.json();
+            if (data.success) {
+                resultsDiv.innerHTML = `<h3>Results:</h3><pre>${data.results}</pre>`;
+            } else {
+                resultsDiv.innerHTML = `<p>Error: ${data.error}</p>`;
+            }
+        });
+    </script>
 </body>
 </html>
