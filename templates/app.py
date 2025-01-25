@@ -25,7 +25,7 @@ def perform_vulnerability_checks(url):
     else:
         results.append("[-] Insecure connection (HTTP) detected")
 
-    # Check for outdated software (basic headers check)
+    # Check for outdated software (basic headers check cve errors)
     try:
         server = response.headers.get('Server', 'Unknown')
         results.append(f"[?] Server header: {server}")
